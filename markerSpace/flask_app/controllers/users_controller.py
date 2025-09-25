@@ -54,7 +54,7 @@ def login():
 def logro():
     return render_template('inicio_sesion.html')
 
+@app.route('/reserva')
+def reserva():
+    return render_template('reserva.html')
 
-
-
-    
