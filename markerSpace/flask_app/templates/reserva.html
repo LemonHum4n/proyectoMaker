@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedir hora</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/estilo_reserva.css')}}">
 </head>
 <body>
-    <div class="container">
+    <div>
 
-        
-        <form class="" novalidate>
+        <header>
             <h1>Pedir Reserva</h1>
+        </header>
+        <form class="" novalidate>
+            
             <form action="/proceso_formu" method="post">
                 
                 
-                <section class="d-flex justify-content-evenly">
-                    <div>
+                <section class="d-flex">
+                    <div class="div_rut">
                         <h5>Rut:</h5>
                         <input type="text" name="rut" class="form-control" placeholder="Ingrese su rut" id="validationRut" required>
                         <div class="invalid-feedback">
@@ -25,21 +28,21 @@
                     </div>
 
                     
-                    <div>
+                    <div class="div_nombre">
                         <h5>Nombre:</h5>
                         <input type="text" name="nombre" class="form-control" placeholder="Ingrese su nombre" id="validationName" required>
                         <div class="invalid-feedback">
                             Porfavor ingrese su nombre.
                         </div>
                     </div>
-                    <div>
+                    <div class="div_apellido">
                         <h5>Apellido:</h5>
                         <input type="text" name="apellido" class="form-control" placeholder="Ingrese su apellido" id="validationLastName" required>
                         <div class="invalid-feedback">
                             Porfavor ingrese su apellido.
                         </div>
                     </div>
-                    <div>
+                    <div class="div_gmail">
                         <h5>Gmail:</h5>
                         <input type="text" name="gmail" class="form-control" placeholder="Ingrese su gmail" id="validationGmail" required>
                         <div class="invalid-feedback">
@@ -49,8 +52,8 @@
 
                 </section>
                 <section class="d-flex justify-content-between">
-                    <div>
-                        <h2>Tipo visita:</h2>
+                    <div class="div_tipo">
+                        <h5>Tipo visita:</h5>
                         <select name="tipo_visita" class="form-select form-select-sm" id="idvisita" style="width: 200px;">
                             <option value="Estudiante">Estudiante</option>
                             <option value="Profesor">Profesor</option>
@@ -59,7 +62,7 @@
                             <option value="Otro" selected>Otro</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="div_zona">
                         <h5>Zona:</h5>
                         <select name="zona" id="idzona" class="form-select form-select-sm">
                             <option value="Impresora 3D">Impresora 3D</option>
@@ -72,7 +75,7 @@
                         </select>
                     </div>
 
-                    <div>
+                    <div class="div_fecha">
                         <h5>Fecha y hora:</h5>
                         <div class="d-flex align-items-center">
                             <input class="form-control" style="height: 50%;"
@@ -90,7 +93,7 @@
                 </section>
 
                 <footer>
-                    <input type="submit" value="Enviar">
+                    <input type="submit" value="Enviar reserva">
                 </footer>
             </form>
         </form>
