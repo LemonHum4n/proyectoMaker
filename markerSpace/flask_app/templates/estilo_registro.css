@@ -27,3 +27,14 @@ form{
     background-color: rgb(73, 54, 40);
     color: white;
 }
+
+
+.inicio_sesion{
+    margin-left: 30px ;
+    margin-top: 65px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 45%;
+    background-color: rgb(214, 192, 179);
+}
