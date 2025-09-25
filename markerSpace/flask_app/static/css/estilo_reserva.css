@@ -1,17 +1,48 @@
 form {
     padding: 2% 5%;
-    background-color: #493628;
+    background-color: #D6C0B3;
+    margin: 2%;
+    border-radius: 10px;
+    height:10%;
 }
 
 body {
-    background-color: #493628;
+    background-color: #E4E0E1;
 }
 
 header {
     text-align: center;
-    background-color: #AB886D;
-    color: #493628;
-    padding-bottom: 0.5%;
+    background-color: #493628;
+    color: #E4E0E1;
+    padding: 0.5% 0%;
+    text-decoration: underline;
+    font-family: 'Trebuchet MS';
 }
 
+footer{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+footer > input {
+    background-color: #493628;
+    color: #E4E0E1;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 3px;
+}
+
+.div_rut, .div_nombre, .div_apellido, .div_gmail {
+    width: 100%;
+    padding: 5px;
+}
+
+.div_rut > input, .div_nombre > input, .div_apellido > input, .div_gmail > input {
+    border-radius: 10px;
+    
+}
 
