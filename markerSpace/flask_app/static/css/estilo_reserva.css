@@ -3,7 +3,9 @@ form {
     background-color: #D6C0B3;
     margin: 2%;
     border-radius: 10px;
-    height:10%;
+    height: 300px;
+    box-shadow: #5e2e0b52 0px 4px 8px 0px;
+    position: relative;
 }
 
 body {
@@ -23,6 +25,9 @@ footer{
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
 }
 
 footer > input {
@@ -34,15 +39,38 @@ footer > input {
     cursor: pointer;
     font-size: 16px;
     margin: 3px;
+    
 }
 
-.div_rut, .div_nombre, .div_apellido, .div_gmail {
+.div_rut, .div_nombre, .div_apellido, .div_gmail, .div_tipo, .div_zona, .div_fecha {
     width: 100%;
     padding: 5px;
 }
 
-.div_rut > input, .div_nombre > input, .div_apellido > input, .div_gmail > input {
+.div_rut > input, .div_nombre > input, .div_apellido > input, .div_gmail > input, .div_tipo > select, .div_zona > select, .div_fecha > input {
     border-radius: 10px;
-    
+    width: 100%;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+h5 {
+    margin-bottom: 10px;
+    font-family: 'Trebuchet MS';
+    background-color: #f3e0d7;
+    color: #493628;
+}
+
+.div_fecha > .d-flex > input {
+    margin-right: 10px;
+    width: 150px;
+    border-radius: 10px;
+}
+
+footer:hover > input {
+    background-color: #AB886D;
+    color: #493628;
 }
 

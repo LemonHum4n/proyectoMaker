@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedir hora</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/estilo_reserva.css')}}">
+    <!-- <link rel="stylesheet" href="{{url_for('static',filename='css/estilo_reserva.css')}}"> -->
+     <link rel="stylesheet" href="estilo_reserva.css">
 </head>
 <body>
     <div>
@@ -21,10 +22,7 @@
                 <section class="d-flex">
                     <div class="div_rut">
                         <h5>Rut:</h5>
-                        <input type="text" name="rut" class="form-control" placeholder="Ingrese su rut" id="validationRut" required>
-                        <div class="invalid-feedback">
-                            Porfavor ingrese su Rut.
-                        </div>
+                        <input type="text" name="rut" class="form-control" placeholder="11111111-1" id="validationRut" required>
                     </div>
 
                     
@@ -44,17 +42,14 @@
                     </div>
                     <div class="div_gmail">
                         <h5>Gmail:</h5>
-                        <input type="text" name="gmail" class="form-control" placeholder="Ingrese su gmail" id="validationGmail" required>
-                        <div class="invalid-feedback">
-                            Porfavor ingrese su Gmail.
-                        </div>
+                        <input type="text" name="gmail" class="form-control" placeholder="ejemplo@example.com" id="validationGmail" required>
                     </div>
 
                 </section>
                 <section class="d-flex justify-content-between">
                     <div class="div_tipo">
                         <h5>Tipo visita:</h5>
-                        <select name="tipo_visita" class="form-select form-select-sm" id="idvisita" style="width: 200px;">
+                        <select name="tipo_visita" class="form-select form-select-sm" id="idvisita">
                             <option value="Estudiante">Estudiante</option>
                             <option value="Profesor">Profesor</option>
                             <option value="Apoderado">Apoderado</option>
@@ -78,7 +73,7 @@
                     <div class="div_fecha">
                         <h5>Fecha y hora:</h5>
                         <div class="d-flex align-items-center">
-                            <input class="form-control" style="height: 50%;"
+                            <input class="form-control"
                             type="date"
                             id="start"
                             name="fecha"
@@ -86,7 +81,7 @@
                             min="2025-06-01"
                             max="2025-12-31"
                             />
-                            <input class="form-control" style="height: 50%;" type="time" name="hora" value="08:00" min="08:00" max="18:00">
+                            <input class="form-control" type="time" name="hora" value="08:00" min="08:00" max="18:00">
                         </div>
                     </div>
                     
