@@ -55,6 +55,9 @@ def logro():
     return render_template('inicio_sesion.html')
 
 
-
+@app.route('/delete', methods=['POST'])
+def delete():
+    u65ser = User.get_by_email(request.form)  
 
     
+    return redirect('/')
