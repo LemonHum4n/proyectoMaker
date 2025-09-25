@@ -15,7 +15,7 @@
             <form action="/proceso_formu" method="post">
                 
                 
-                <div class="d-flex justify-content-evenly">
+                <section class="d-flex justify-content-evenly">
                     <div>
                         <h5>Rut:</h5>
                         <input type="text" name="rut" class="form-control" placeholder="Ingrese su rut" id="validationRut" required>
@@ -40,6 +40,39 @@
                         </div>
                     </div>
                     <div>
+                        <h5>Gmail:</h5>
+                        <input type="text" name="gmail" class="form-control" placeholder="Ingrese su gmail" id="validationGmail" required>
+                        <div class="invalid-feedback">
+                            Porfavor ingrese su Gmail.
+                        </div>
+                    </div>
+
+                </section>
+                <section class="d-flex justify-content-between">
+                    <div>
+                        <h2>Tipo visita:</h2>
+                        <select name="tipo_visita" class="form-select form-select-sm" id="idvisita" style="width: 200px;">
+                            <option value="Estudiante">Estudiante</option>
+                            <option value="Profesor">Profesor</option>
+                            <option value="Apoderado">Apoderado</option>
+                            <option value="Visita">Visita</option>
+                            <option value="Otro" selected>Otro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <h5>Zona:</h5>
+                        <select name="zona" id="idzona" class="form-select form-select-sm">
+                            <option value="Impresora 3D">Impresora 3D</option>
+                            <option value="Router CNC">Router CNC</option>
+                            <option value="Cortadora Laser">Cortadora laser</option>
+                            <option value="Clase capacitacion">Clase capacitacion</option>
+                            <option value="Sala de clases">Sala de clases</option>
+                            <option value="Taller">Taller</option>
+                            <option value="Domo de batalla robotica">Domo de batalla robotica</option>
+                        </select>
+                    </div>
+
+                    <div>
                         <h5>Fecha y hora:</h5>
                         <div class="d-flex align-items-center">
                             <input class="form-control" style="height: 50%;"
@@ -54,42 +87,11 @@
                         </div>
                     </div>
                     
+                </section>
 
-                    <div>
-                        <h5>Zona agendada:</h5>
-                        <select name="zona" id="idzona" class="form-select form-select-sm">
-                            <option value="Impresora 3D">Impresora 3D</option>
-                            <option value="Router CNC">Router CNC</option>
-                            <option value="Cortadora Laser">Cortadora laser</option>
-                            <option value="Clase capacitacion">Clase capacitacion</option>
-                            <option value="Sala de clases">Sala de clases</option>
-                            <option value="Taller">Taller</option>
-                            <option value="Domo de batalla robotica">Domo de batalla robotica</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <h5>Gmail:</h5>
-                    <input type="text" name="gmail" class="form-control" placeholder="Ingrese su gmail" id="validationGmail" required>
-                    <div class="invalid-feedback">
-                         Porfavor ingrese su Gmail.
-                    </div>
-                </div>
-                
-                
-
-                <h2>Tipo visita:</h2>
-                <select name="tipo_visita" class="form-select form-select-sm" id="idvisita" style="width: 200px;">
-                    <option value="Estudiante">Estudiante</option>
-                    <option value="Profesor">Profesor</option>
-                    <option value="Apoderado">Apoderado</option>
-                    <option value="Visita">Visita</option>
-                    <option value="Otro" selected>Otro</option>
-                </select>
-
-                
-                <br><br>
-                <input type="submit" value="Enviar">
+                <footer>
+                    <input type="submit" value="Enviar">
+                </footer>
             </form>
         </form>
         
