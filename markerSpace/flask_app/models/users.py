@@ -10,7 +10,6 @@ class User:
     def __init__(self, data):
             self.id = data['id']
             self.first_name = data['first_name']
-            self.last_name = data['last_name']
             self.email = data['email']
             self.password = data['password']
             self.created_at = data['created_at']
@@ -25,10 +24,6 @@ class User:
 
         if len(formulario['first_name']) < 3:
             flash('Nombre debe tener al menos 3 caracteres', 'registro')
-            es_valido = False
-
-        if len(formulario['last_name']) < 3:
-            flash('Apellido debe tener al menos 3 caracteres', 'registro')
             es_valido = False
 
         if len(formulario['password']) < 6:
@@ -54,7 +49,7 @@ class User:
         return es_valido
     @classmethod
     def save(cls, formulario):
-        query = "INSERT INTO users (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s)"
+        query = "INSERT INTO users (first_name, email, password) VALUES (%(first_name)s, %(email)s, %(password)s)"
         result = connectToMySQL('esquema_maker').query_db(query, formulario)
         return result 
     
