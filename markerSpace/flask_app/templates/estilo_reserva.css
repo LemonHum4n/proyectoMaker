@@ -69,7 +69,8 @@ h5 {
     border-radius: 10px;
 }
 
-footer:hover > input {
+
+#input_enviar:hover{
     background-color: #AB886D;
     color: #493628;
 }
