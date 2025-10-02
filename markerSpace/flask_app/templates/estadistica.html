@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Uso</title>
+    <link rel="stylesheet" href="/static/styles.css"> 
+    <link rel="stylesheet" href="estilo_estadistica.css">
+</head>
+<body>
+    <h1>Estadísticas de Uso por Rol</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Rol</th>
+                <th>Uso del Espacio (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rol, uso in estadisticas %}
+            <tr>
+                <td>{{ rol }}</td>
+                <td>{{ uso }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
