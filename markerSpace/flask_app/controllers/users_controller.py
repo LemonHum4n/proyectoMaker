@@ -57,3 +57,12 @@ def logro():
 @app.route('/reserva')
 def reserva():
     return render_template('reserva.html')
+
+@app.route('/estadisticas')
+def estadisticas():
+    datos = [
+        ('Administrador', 45),
+        ('Usuario', 30),
+        ('Invitado', 25)
+    ]
+    return render_template('estadistica.html', estadisticas=datos)
