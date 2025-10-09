@@ -40,7 +40,36 @@ CREATE TABLE IF NOT EXISTS `esquema_maker`.`users` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-
+-- -----------------------------------------------------
+-- Table `esquema_maker`.`reserva`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `esquema_maker`.`reserva` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `rut` VARCHAR(20) NOT NULL,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `tipo_visita` VARCHAR(45) NOT NULL,
+  `zone_id` INT NOT NULL,
+  `fecha_reserva` DATE NOT NULL,
+  `hora_reserva` TIME NOT NULL,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `fk_reserva_user_idx` (`user_id` ASC),
+  INDEX `fk_reserva_zone_idx` (`zone_id` ASC),
+  CONSTRAINT `fk_reserva_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `esquema_maker`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_reserva_zone`
+    FOREIGN KEY (`zone_id`)
+    REFERENCES `esquema_maker`.`zone` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
