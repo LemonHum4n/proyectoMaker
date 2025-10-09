@@ -65,3 +65,28 @@ def estadisticas():
         ('Invitado', 25)
     ]
     return render_template('estadistica.html', estadisticas=datos)
+
+@app.route('/delete', methods=['POST'])
+def delete():
+    email = request.form.get('email')
+    password = request.form.get('password')
+    user = User.get_by_email({'email': email})
+
+    if user and bcrypt.check_password_hash(user.password, password):
+        deleted = User.delete({'id': user.id})
+        if deleted:
+            session.clear()
+            flash('0', category='delete_account')
+        else:
+            flash('Error al eliminar la cuenta.', category='delete_account')
+    else:
+        flash('Email o contraseña incorrectos.', category='delete_account')
+
+    return render_template('registro.html')
+
+@app.route('/delete_reserve', methods=['POST'])
+def delete_reserve():
+
+    
+
+    return render_template('resitro.html')

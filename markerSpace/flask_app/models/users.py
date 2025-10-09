@@ -57,9 +57,12 @@ class User:
     def get_by_email(cls, formulario):
         query = "select * from users where email = %(email)s"
         result = connectToMySQL('esquema_maker').query_db(query, formulario)
-        if len(result) < 1: #Si no existe ese email
+        if len(result) < 1:
             return False
         else:
             user = cls(result[0])
             return user
-    
+    @classmethod
+    def delete(cls, data):
+        query = "DELETE FROM users WHERE id = %(id)s"
+        return connectToMySQL('esquema_maker').query_db(query, data)
