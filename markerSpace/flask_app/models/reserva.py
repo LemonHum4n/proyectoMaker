@@ -20,3 +20,13 @@ class Reserva:
             self.hora_reserva = data['hora_reserva']
             self.created_at = data['created_at']
             self.updated_at = data['updated_at']
+    @classmethod
+    def get_by_name(cls, formulario):
+        query= "DELETE FROM users WHERE name = %(name)s"
+        result= connectToMySQL('esquema_maker').query_db(query, formulario)
+        if len(result) < 1:
+            return False
+        else:
+            user = cls(result[0])
+            return user
+     

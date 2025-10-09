@@ -86,7 +86,17 @@ def delete():
 
 @app.route('/delete_reserve', methods=['POST'])
 def delete_reserve():
-
-    
+    first_name = request.form.get('first_name')
+    password = request.form.get('password')
+    user = User.get_by_email({'first_name': first_name})
+    if user and bcrypt.check_password_hash(user.password, password):
+        deleted = User.delete({'id': user.id})
+        if deleted:
+            session.clear()
+            flash('0', category='delete_account')
+        else:
+            flash('Error al eliminar la cuenta.', category='delete_account')
+    else:
+        flash('Nombre o contraseña incorrectos.', category='delete_account')
 
     return render_template('resitro.html')
