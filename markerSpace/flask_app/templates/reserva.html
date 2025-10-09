@@ -108,6 +108,46 @@
 
                         
                     </script>
+
+                    <script>
+                        const form = document.querySelector('form');
+                        const fechaInput = document.querySelector('input[name="fecha"]');
+                        const horaInput = document.querySelector('input[name="hora"]');
+
+                        form.addEventListener('submit', async (event) => {
+                            event.preventDefault(); // Evita el envío del formulario
+
+                            const fecha = fechaInput.value;
+                            const hora = horaInput.value;
+
+                            if (!fecha || !hora) {
+                                alert('Por favor, seleccione una fecha y hora.');
+                                return;
+                            }
+
+                            // Verificar disponibilidad del horario
+                            try {
+                                const response = await fetch('/verificar_horario', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({ fecha, hora })
+                                });
+
+                                const data = await response.json();
+
+                                if (!data.disponible) {
+                                    alert('El horario seleccionado ya está ocupado. Por favor, elija otro.');
+                                } else {
+                                    form.submit(); // Enviar el formulario si el horario está disponible
+                                }
+                            } catch (error) {
+                                console.error('Error al verificar el horario:', error);
+                                alert('Hubo un problema al verificar el horario. Inténtelo de nuevo más tarde.');
+                            }
+                        });
+                    </script>
                     
                 </section>
 
