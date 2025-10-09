@@ -49,6 +49,10 @@ def login():
     session['user_id'] = user.id
     return redirect('/logro')
 
+@app.route('/eliminar_cuenta', methods=['POST'])
+def eliminar_cuenta():
+    return render_template('registro.html')
+
 @app.route('/logro')
 def logro():
     return render_template('reserva.html')
