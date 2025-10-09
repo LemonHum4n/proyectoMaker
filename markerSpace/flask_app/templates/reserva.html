@@ -75,16 +75,39 @@
                         <h5>Fecha y hora:</h5>
                         <div class="d-flex align-items-center">
                             <input class="form-control"
-                            type="date"
-                            id="start"
-                            name="fecha"
-                            value="2025-06-05"
-                            min="2025-06-01"
-                            max="2025-12-31"
-                            />
+                                type="date"
+                                id="start"
+                                name="fecha"
+                                value=""
+                                />
                             <input class="form-control" type="time" name="hora" value="08:00" min="08:00" max="18:00">
                         </div>
                     </div>
+
+                    <script> //Necesario para poner que el minimo del dia sea hoy y no deje seleccionar dias anteriores, al igual
+                        //que no deje seleccionar sabados y domingos
+                        const dateInput = document.getElementById('start'); //Obtener fecha del input
+                    
+                        const today = new Date();
+                        const yyyy = today.getFullYear();
+                        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Obtener el mes con los dos digitos
+                        const dd = String(today.getDate()).padStart(2, '0'); // Lo mismo de arriba, pero con el dia
+                        const todayFormatted = `${yyyy}-${mm}-${dd}`; //Formado de año-mes-dia
+                        dateInput.min = todayFormatted;
+                    
+                        // Previene que el usuario seleccione sabado y domingo
+                        dateInput.addEventListener('input', function () {
+                            const selectedDate = new Date(this.value);
+                            const day = selectedDate.getDay(); // Obtenemos el dia seleccionado, si 0 es Domingo y 6 es Sábado
+                    
+                            if (day === 5 || day === 6) {
+                                alert('No se permiten reservas los fines de semana (sábados y domingos).');
+                                this.value = ''; // Limpia el valor del input
+                            }
+                        });
+
+                        
+                    </script>
                     
                 </section>
 
