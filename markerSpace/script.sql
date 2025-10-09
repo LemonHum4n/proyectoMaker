@@ -41,6 +41,20 @@ CREATE TABLE IF NOT EXISTS `esquema_maker`.`users` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
+-- Table `esquema_maker`.`horario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `esquema_maker`.`horario`(
+	`id` time Not null,
+    `hora_reserva` time not null, 
+    `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	primary key(`id`)
+)
+	ENGINE = InnoDB;
+
+
+
+-- -----------------------------------------------------
 -- Table `esquema_maker`.`reserva`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `esquema_maker`.`reserva` (
@@ -64,12 +78,19 @@ CREATE TABLE IF NOT EXISTS `esquema_maker`.`reserva` (
     REFERENCES `esquema_maker`.`users` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
+  constraint `fk_hora_reserva`
+	foreign key(`hora_reserva`)
+    references `esquema_maker`.`horario`(`id`)
+	ON DELETE CASCADE
+    ON UPDATE CASCADE, 
   CONSTRAINT `fk_reserva_zone`
     FOREIGN KEY (`zone_id`)
     REFERENCES `esquema_maker`.`zone` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

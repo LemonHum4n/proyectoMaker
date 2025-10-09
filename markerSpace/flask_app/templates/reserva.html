@@ -98,7 +98,11 @@
                         // Previene que el usuario seleccione sabado y domingo
                         dateInput.addEventListener('input', function () {
                             const selectedDate = new Date(this.value);
+<<<<<<< HEAD
                             const day = selectedDate.getDay(); // Obtenemos el dia seleccionado, si 6 es Domingo y 5 es Sábado
+=======
+                            const day = selectedDate.getDay(); // Obtenemos el dia seleccionado, si 5 es Domingo y 6 es Sábado
+>>>>>>> 583892becac111189487b012ceda0678372e5f8e
                     
                             if (day === 5 || day === 6) {
                                 alert('No se permiten reservas los fines de semana (sábados y domingos).');
