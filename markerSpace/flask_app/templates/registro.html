@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-6 registro">
                 <h1>Registro</h1>
-                <!-- {% with messages = get_flashed_messages(category_filter=['registro']) %}
+                {% with messages = get_flashed_messages(category_filter=['registro']) %}
                         {% if messages %}
                             {% if messages[0] == '0' %}
                                 <div class="alert alert-success">
@@ -30,7 +30,7 @@
                                 </div>
                             {% endif%}
                         {% endif %}
-                {% endwith %} -->
+                {% endwith %}
                 <form action="/register" method="post">
                     <div class="form-group">
                         <label for="first_name">Nombre de usuario</label>
@@ -56,7 +56,7 @@
 
             <div class="col-6 inicio_sesion">
                 <h1>Inicia Sesión</h1>
-                <!-- {% with messages = get_flashed_messages(category_filter=['inicio_sesion']) %}
+                {% with messages = get_flashed_messages(category_filter=['inicio_sesion']) %}
                         {% if messages %}
                                 <div class="alert alert-danger">
                                     {% for message in messages %}
@@ -64,7 +64,7 @@
                                     {% endfor %}
                                 </div>
                         {% endif %}
-                {% endwith %} -->
+                {% endwith %}
                 <form action="/login" method="post">
                         <div class="form-group">
                             <label for="email2">E-mail</label>
