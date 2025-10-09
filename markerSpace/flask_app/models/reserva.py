@@ -1,0 +1,22 @@
+from flask_app.config.mysqlconnection import connectToMySQL
+
+from flask import flash #type: ignore
+
+import re #Importando las expresiones regulares
+
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+from flask_app.models import user
+class Reserva:
+    def __init__(self, data):
+            self.id = data['id']
+            self.user_id = data['user_id']
+            self.rut = data['rut']
+            self.first_name = data['first_name']
+            self.last_name = data['last_name']
+            self.email = data['email']
+            self.tipo_visita = data['tipo_visita']
+            self.zone_id = data['zone_id']
+            self.fecha_reserva = data['fecha_reserva']
+            self.hora_reserva = data['hora_reserva']
+            self.created_at = data['created_at']
+            self.updated_at = data['updated_at']
