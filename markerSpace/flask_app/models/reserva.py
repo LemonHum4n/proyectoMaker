@@ -17,7 +17,7 @@ class Reserva:
             self.tipo_visita = data['tipo_visita']
             self.zone_id = data['zone_id']
             self.fecha_reserva = data['fecha_reserva']
-            self.hora_reserva = data['hora_reserva']
+            self.horario_id = data['horario_id']
             self.created_at = data['created_at']
             self.updated_at = data['updated_at']
     @classmethod
