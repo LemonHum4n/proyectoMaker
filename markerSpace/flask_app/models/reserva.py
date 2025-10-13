@@ -6,6 +6,7 @@ import re #Importando las expresiones regulares
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 from flask_app.models import user
+from flask_app.models import horario
 class Reserva:
     def __init__(self, data):
             self.id = data['id']
