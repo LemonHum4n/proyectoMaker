@@ -8,16 +8,27 @@ from flask_app.models import reserva
 class Horario:
     def __init__(self, data):
             self.id = data['id']
-            self.hora_inicio = data['hora_inicio']
-            self.hora_fin = data['hora_fin']
-            self.created_at = data['created_at']
-            self.updated_at = data['updated_at']
+            self.hora = data['hora']
+
+    @staticmethod
+    def validate_horario(horario):
+        is_valida = True # asumimos que esto es true
+        if len(horario['hora']) < 1:
+            flash("El campo hora no puede estar vacio", "error_horario")
+            is_valida = False
+        return is_valida
+
+
     @classmethod
-    def get_by_name(cls, formulario):
-        query= "DELETE FROM users WHERE name = %(name)s"
-        result= connectToMySQL('esquema_maker').query_db(query, formulario)
-        if len(result) < 1:
-            return False
-        else:
-            user = cls(result[0])
-            return user
+    def save(cls, data):
+        query = "INSERT INTO horario (hora) VALUES (%(hora)s);"
+        return connectToMySQL('esquema_maker').query_db(query, data)
+    
+    @staticmethod
+    def get_all():
+        query = "SELECT * FROM horario"
+        results = connectToMySQL('esquema_maker').query_db(query)
+        horarios = []
+        for row in results:
+            horarios.append(Horario(row))
+        return horarios

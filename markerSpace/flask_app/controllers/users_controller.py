@@ -108,3 +108,9 @@ def delete_reserve():
         flash('Nombre o contraseña incorrectos.', category='delete_account')
 
     return render_template('resitro.html')
+
+
+@app.route('/reserva', methods=['POST'])
+def mostrar_reserva():
+    horario = request.form.get('horario')
+    return render_template('reserva.html' , Horario=horario)

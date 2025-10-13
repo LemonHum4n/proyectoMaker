@@ -52,7 +52,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 
 create table if not exists `esquema_maker`.`horario`(
 	 `id` INT NOT NULL AUTO_INCREMENT,
-	`hora` varchar(46) not null ,
+	 `hora` varchar(46) not null ,
     primary key(`id`)
 );
 
