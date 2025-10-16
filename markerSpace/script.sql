@@ -63,7 +63,6 @@ create table if not exists `esquema_maker`.`horario`(
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `esquema_maker`.`reserva` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
   `rut` VARCHAR(20) NOT NULL,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
@@ -77,11 +76,6 @@ CREATE TABLE IF NOT EXISTS `esquema_maker`.`reserva` (
   PRIMARY KEY (`id`),
   INDEX `fk_reserva_user_idx` (`user_id` ASC),
   INDEX `fk_reserva_zone_idx` (`zone_id` ASC),
-  CONSTRAINT `fk_reserva_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `esquema_maker`.`users` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
   CONSTRAINT `fk_reserva_zone`
     FOREIGN KEY (`zone_id`)
     REFERENCES `esquema_maker`.`zone` (`id`)

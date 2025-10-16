@@ -30,4 +30,10 @@ class Reserva:
         else:
             user = cls(result[0])
             return user
+        
+    @classmethod
+    def save(cls, formulario):
+        query = "INSERT INTO users (rut, first_name, last_name, email, tipo_visita, zone_id, fecha_reserva, horario_id) VALUES (%(rut)s, %(nombre)s, %(apellido)s, %(gmail)s, %(tipo_visita)s, %(zona)s, %(fecha)s, %(horario)s )"
+        result = connectToMySQL('esquema_maker').query_db(query, formulario)
+        return result 
     

@@ -112,5 +112,16 @@ def delete_reserve():
 
 @app.route('/reserva', methods=['POST'])
 def mostrar_reserva():
-    horario = request.form.get('horario')
-    return render_template('reserva.html' , Horario=horario)
+    formulario_reserva= {
+        "rut" : request.form.get('rut'),
+        "nombre" : request.form.get('nombre'),
+        "apellido" : request.form.get('apellido'),
+        "gmail" : request.form.get('gmail'),
+        "tipo_visita" : request.form.get('tipo_visita'),
+        "zona" : request.form.get('zona'),
+        "fecha" : request.form.get('fecha'),
+        "horario" : request.form.get('horario')
+    }
+    
+    
+    return render_template('reserva.html' )
