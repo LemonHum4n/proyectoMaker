@@ -107,7 +107,7 @@ def delete_reserve():
     else:
         flash('Nombre o contraseña incorrectos.', category='delete_account')
 
-    return render_template('resitro.html')
+    return render_template('registro.html')
 
 
 @app.route('/reserva', methods=['POST'])
@@ -127,8 +127,13 @@ def mostrar_reserva():
     print(formulario_reserva)
 
     from flask_app.models.reserva import Reserva
-    Reserva.save(formulario_reserva)
+    if Reserva.exists(formulario_reserva['fecha_reserva'], formulario_reserva['horario_id']):
+        flash('La hora seleccionada ya está ocupada. Por favor, elige otra.', 'reserva')
+        return redirect('/reserva')
 
     flash('Reserva realizada con éxito', 'reserva')
     return redirect('/reserva')
+
+
+
 
