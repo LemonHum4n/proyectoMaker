@@ -110,6 +110,29 @@ def delete_reserve():
     return render_template('resitro.html')
 
 
+# @app.route('/reserva', methods=['POST'])
+# def mostrar_reserva():
+#     formulario_reserva = {
+#         "user_id": session.get('user_id'),
+#         "rut": request.form.get('rut'),
+#         "first_name": request.form.get('nombre'),
+#         "last_name": request.form.get('apellido'),
+#         "email": request.form.get('gmail'),
+#         "tipo_visita": request.form.get('tipo_visita'),
+#         "zone_id": request.form.get('zona'),
+#         "fecha_reserva": request.form.get('fecha'),
+#         "horario_id": request.form.get('horario')
+#     }
+
+#     # Guardar la reserva en la base de datos
+#     from flask_app.models.reserva import Reserva
+#     Reserva.save(formulario_reserva)
+
+#     flash('Reserva realizada con éxito', 'reserva')
+#     return redirect('/reserva')
+
+
+
 @app.route('/reserva', methods=['POST'])
 def mostrar_reserva():
     formulario_reserva = {
@@ -125,8 +148,15 @@ def mostrar_reserva():
     }
 
     # Guardar la reserva en la base de datos
+    # Validar si ya existe una reserva para la misma fecha y hora
     from flask_app.models.reserva import Reserva
-    Reserva.save(formulario_reserva)
+    if Reserva.exists(formulario_reserva['fecha_reserva'], formulario_reserva['horario_id']):
+        flash('La hora seleccionada ya está ocupada. Por favor, elige otra.', 'reserva')
+        return redirect('/reserva')
 
     flash('Reserva realizada con éxito', 'reserva')
     return redirect('/reserva')
+
+
+
+
