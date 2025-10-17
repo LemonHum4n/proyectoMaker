@@ -112,16 +112,21 @@ def delete_reserve():
 
 @app.route('/reserva', methods=['POST'])
 def mostrar_reserva():
-    formulario_reserva= {
-        "rut" : request.form.get('rut'),
-        "nombre" : request.form.get('nombre'),
-        "apellido" : request.form.get('apellido'),
-        "gmail" : request.form.get('gmail'),
-        "tipo_visita" : request.form.get('tipo_visita'),
-        "zona" : request.form.get('zona'),
-        "fecha" : request.form.get('fecha'),
-        "horario" : request.form.get('horario')
+    formulario_reserva = {
+        "user_id": session.get('user_id'),
+        "rut": request.form.get('rut'),
+        "first_name": request.form.get('nombre'),
+        "last_name": request.form.get('apellido'),
+        "email": request.form.get('gmail'),
+        "tipo_visita": request.form.get('tipo_visita'),
+        "zone_id": request.form.get('zona'),
+        "fecha_reserva": request.form.get('fecha'),
+        "horario_id": request.form.get('horario')
     }
-    
-    
-    return render_template('reserva.html' )
+
+    # Guardar la reserva en la base de datos
+    from flask_app.models.reserva import Reserva
+    Reserva.save(formulario_reserva)
+
+    flash('Reserva realizada con éxito', 'reserva')
+    return redirect('/reserva')

@@ -5,8 +5,6 @@ from flask import flash #type: ignore
 import re #Importando las expresiones regulares
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
-from flask_app.models import user
-from flask_app.models import horario
 class Reserva:
     def __init__(self, data):
             self.id = data['id']
@@ -33,7 +31,10 @@ class Reserva:
         
     @classmethod
     def save(cls, formulario):
-        query = "INSERT INTO users (rut, first_name, last_name, email, tipo_visita, zone_id, fecha_reserva, horario_id) VALUES (%(rut)s, %(nombre)s, %(apellido)s, %(gmail)s, %(tipo_visita)s, %(zona)s, %(fecha)s, %(horario)s )"
+        query = """
+        INSERT INTO reserva 
+        (user_id, rut, first_name, last_name, email, tipo_visita, zone_id, fecha_reserva, horario_id) 
+        VALUES (%(user_id)s, %(rut)s, %(first_name)s, %(last_name)s, %(email)s, %(tipo_visita)s, %(zone_id)s, %(fecha_reserva)s, %(horario_id)s)
+        """
         result = connectToMySQL('esquema_maker').query_db(query, formulario)
-        return result 
-    
+        return result
