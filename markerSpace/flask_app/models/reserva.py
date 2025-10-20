@@ -29,3 +29,17 @@ class Reserva:
         """
         result = connectToMySQL('esquema_maker').query_db(query, formulario)
         return result
+    
+    @classmethod
+    def datos(cls, zona):
+        query = """
+        SELECT tipo_visita, COUNT(*) * 100.0 / (SELECT COUNT(*) FROM reserva WHERE zona = %(zona)s) AS porcentaje
+        FROM reserva
+        WHERE zona = %(zona)s
+        GROUP BY tipo_visita;
+        """
+        resultados = connectToMySQL('esquema_maker').query_db(query, {'zona': zona})
+
+        datos = [(resultado['tipo_visita'], resultado['porcentaje']) for resultado in resultados]
+        return datos
+

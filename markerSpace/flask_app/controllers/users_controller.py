@@ -81,12 +81,13 @@ def reserva():
 
 @app.route('/estadisticas')
 def estadisticas():
-    datos = [
-        ('Administrador', 45),
-        ('Usuario', 30),
-        ('Invitado', 25)
-    ]
-    return render_template('estadistica.html', estadisticas=datos)
+    zonas = ['Impresora 3D', 'Router CNC', 'Cortadora laser', 'Clase capacitacion', 'Sala de clases', 'Taller', 'Domo de batalla robotica']
+    datos_por_zona = {}
+
+    for zona in zonas:
+        datos_por_zona[zona] = Reserva.datos(zona)
+
+    return render_template('estadistica.html', datos_por_zona=datos_por_zona)
 
 @app.route('/delete', methods=['POST'])
 def delete():
