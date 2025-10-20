@@ -59,12 +59,22 @@ class Reserva:
         resultado = connectToMySQL('esquema_maker').query_db(query, params)
         return True if resultado else False
 
-    @staticmethod
-    def valida_horario(formulario):
-        es_valido = True 
+    @classmethod
+    def validar_horario(cls, formulario):
+        """
+        formulario debe contener 'zona', 'fecha_reserva' y 'horario'.
+        Devuelve True si el horario está disponible, False si ya hay una reserva.
+        """
+        zona = formulario.get('zona')
+        fecha = formulario.get('fecha_reserva')
+        horario = formulario.get('horario')
 
-        if Reserva.existe_reserva(formulario['zona'], formulario['fecha_reserva'], formulario['horario']):
-            flash('Horario no disponible para la zona seleccionada', 'reserva')
-            es_valido = False
+        if not zona or not fecha or not horario:
+            flash('Faltan datos para validar el horario.', 'reserva')
+            return False
 
-        return es_valido
+        if cls.existe_reserva(zona, fecha, horario):
+            flash('El horario ya está reservado en esa fecha y zona.', 'reserva')
+            return False
+
+        return True
