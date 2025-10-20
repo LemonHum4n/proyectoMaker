@@ -42,7 +42,8 @@ class Reserva:
 
         datos = [(resultado['tipo_visita'], resultado['porcentaje']) for resultado in resultados]
         return datos
-
+    
+    #-------
     @classmethod
     def existe_reserva(cls, zona, fecha_reserva, horario):
         query = """
