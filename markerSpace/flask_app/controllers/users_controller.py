@@ -2,6 +2,7 @@ from flask import render_template, redirect, request, session, flash #type: igno
 from flask_app import app
 
 from flask_app.models.users import User
+from flask_app.models.reserva import Reserva
 
 from flask_bcrypt import Bcrypt #type: ignore
 
@@ -61,8 +62,21 @@ def eliminar_reserva():
 def logro():
     return render_template('reserva.html')
 
-@app.route('/reserva')
+@app.route('/reserva', methods=['GET', 'POST'])
 def reserva():
+    if request.method == 'POST':
+        formulario = {
+            'rut': request.form['rut'],
+            'first_name': request.form['nombre'],
+            'last_name': request.form['apellido'],
+            'email': request.form['gmail'],
+            'tipo_visita': request.form['tipo_visita'],
+            'zona': request.form['zona'],
+            'fecha_reserva': request.form['fecha'],
+            'horario': request.form['horario']
+        }
+        Reserva.save(formulario)
+        return redirect('/reserva')
     return render_template('reserva.html')
 
 @app.route('/estadisticas')
@@ -109,30 +123,21 @@ def delete_reserve():
 
     return render_template('registro.html')
 
-
-@app.route('/reserva', methods=['POST'])
-def mostrar_reserva():
-    print(request.form)
-    formulario_reserva = {
-        "user_id": session.get('user_id'),
-        "rut": request.form.get('rut'),
-        "first_name": request.form.get('nombre'),
-        "last_name": request.form.get('apellido'),
-        "email": request.form.get('gmail'),
-        "tipo_visita": request.form.get('tipo_visita'),
-        "zone_id": request.form.get('zona'),
-        "fecha_reserva": request.form.get('fecha'),
-        "horario_id": request.form.get('horario')
+@app.route('/reserva_guardar', methods=['POST'])
+def guardar_reserva():
+    formulario = {
+        'rut': request.form['rut'],
+        'first_name': request.form['nombre'],
+        'last_name': request.form['apellido'],
+        'email': request.form['gmail'],
+        'tipo_visita': request.form['tipo_visita'],
+        'zona': request.form['zona'],
+        'fecha_reserva': request.form['fecha'],
+        'horario': request.form['horario']
     }
-    print(formulario_reserva)
-
-    from flask_app.models.reserva import Reserva
-    if Reserva.exists(formulario_reserva['fecha_reserva'], formulario_reserva['horario_id']):
-        flash('La hora seleccionada ya está ocupada. Por favor, elige otra.', 'reserva')
-        return redirect('/reserva')
-
-    flash('Reserva realizada con éxito', 'reserva')
+    Reserva.save(formulario)
     return redirect('/reserva')
+
 
 
 
