@@ -46,13 +46,13 @@ class Reserva:
     # aqui los metodos para validar horas , fechas y zonas
 
     @classmethod
-    def validar_disponibilidad(cls, formulario):
+    def validar_disponibilidad(cls, horario, fecha_reserva, zona):
         query = """
         SELECT COUNT(*) AS cantidad
         FROM reserva
         WHERE zona = %(zona)s AND fecha_reserva = %(fecha_reserva)s AND horario = %(horario)s;
         """
-        resultado = connectToMySQL('esquema_maker').query_db(query, formulario)
+        resultado = connectToMySQL('esquema_maker').query_db(query, {'zona': zona, 'fecha_reserva': fecha_reserva, 'horario': horario})
         return resultado[0]['cantidad'] == 0  # Retorna True si no hay reservas, False si ya existe una reserva
     
     @staticmethod
@@ -72,7 +72,7 @@ class Reserva:
             es_valido = False
 
         # Validar disponibilidad
-        if not Reserva.validar_disponibilidad(formulario):
+        if not Reserva.validar_disponibilidad(formulario['horario'], formulario['fecha_reserva'], formulario['zona']):
             flash('La zona, fecha y horario seleccionados ya están reservados. Por favor, elija otra opción.', 'reserva')
             es_valido = False
 
