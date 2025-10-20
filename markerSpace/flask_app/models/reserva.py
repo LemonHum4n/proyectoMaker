@@ -45,35 +45,72 @@ class Reserva:
     
     # aqui los metodos para validar horas , fechas y zonas
 
-    @classmethod
-    def validar_disponibilidad(cls, horario, fecha_reserva, zona):
-        query = """
-        SELECT COUNT(*) AS cantidad
-        FROM reserva
-        WHERE zona = %(zona)s AND fecha_reserva = %(fecha_reserva)s AND horario = %(horario)s;
-        """
-        resultado = connectToMySQL('esquema_maker').query_db(query, {'zona': zona, 'fecha_reserva': fecha_reserva, 'horario': horario})
-        return resultado[0]['cantidad'] == 0  # Retorna True si no hay reservas, False si ya existe una reserva
-    
     @staticmethod
-    def valida_reserva(formulario):
-        es_valido = True 
+    def valida_horario(formulario):
+        es_valido = True
 
-        if len(formulario['first_name']) < 2:
-            flash('Nombre debe tener al menos 2 caracteres', 'reserva')
-            es_valido = False
+        horario = formulario['horario']
+        zona = formulario['zona']
 
-        if len(formulario['last_name']) < 2:
-            flash('Apellido debe tener al menos 2 caracteres', 'reserva')
-            es_valido = False
+        if zona == 'Impresion 3D':
+            horas_disponibles = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+        elif zona == 'Corte Laser':
+            horas_disponibles = ['10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30']
+        else:
+            flash("Zona no valida.", "reserva")
+            return False
 
-        if not EMAIL_REGEX.match(formulario['email']):
-            flash('E-mail inválido', 'reserva')
-            es_valido = False
-
-        # Validar disponibilidad
-        if not Reserva.validar_disponibilidad(formulario['horario'], formulario['fecha_reserva'], formulario['zona']):
-            flash('La zona, fecha y horario seleccionados ya están reservados. Por favor, elija otra opción.', 'reserva')
+        if horario not in horas_disponibles:
+            flash(f"El horario seleccionado no está disponible para la zona {zona}.", "reserva")
             es_valido = False
 
         return es_valido
+    
+    @staticmethod
+    def valida_fecha(formulario):
+        es_valido = True
+
+        fecha_reserva = formulario['fecha_reserva']
+
+        query = """
+        SELECT COUNT(*) AS total_reservas
+        FROM reserva
+        WHERE fecha_reserva = %(fecha_reserva)s;
+        """
+        resultado = connectToMySQL('esquema_maker').query_db(query, {'fecha_reserva': fecha_reserva})
+        total_reservas = resultado[0]['total_reservas']
+
+        if total_reservas >= 20:
+            flash("La fecha seleccionada ya ha alcanzado el límite de reservas. Por favor, elija otra fecha.", "reserva")
+            es_valido = False
+
+        return es_valido
+    
+    @staticmethod
+    def valida_zona(formulario):
+        es_valido = True
+
+        zona = formulario['zona']
+
+        if zona not in ['Impresion 3D', 'Corte Laser']:
+            flash("Zona no valida.", "reserva")
+            es_valido = False
+
+        return es_valido
+    
+    @staticmethod
+    def valida_reserva(formulario):
+        es_valido = True
+
+        if not Reserva.valida_horario(formulario):
+            es_valido = False
+
+        if not Reserva.valida_fecha(formulario):
+            es_valido = False
+
+        if not Reserva.valida_zona(formulario):
+            es_valido = False
+
+        return es_valido
+    
+    
