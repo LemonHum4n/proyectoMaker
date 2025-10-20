@@ -16,7 +16,7 @@ class Reserva:
             self.tipo_visita = data['tipo_visita']
             self.zone_id = data['zone_id']
             self.fecha_reserva = data['fecha_reserva']
-            self.horario_id = data['horario_id']
+            self.horario = data['horario']
             self.created_at = data['created_at']
             self.updated_at = data['updated_at']
     @classmethod
@@ -33,8 +33,8 @@ class Reserva:
     def save(cls, formulario):
         query = """
         INSERT INTO reserva 
-        (user_id, rut, first_name, last_name, email, tipo_visita, zone_id, fecha_reserva, horario_id) 
-        VALUES (%(user_id)s, %(rut)s, %(first_name)s, %(last_name)s, %(email)s, %(tipo_visita)s, %(zone_id)s, %(fecha_reserva)s, %(horario_id)s)
+        (user_id, rut, first_name, last_name, email, tipo_visita, zone_id, fecha_reserva, horario) 
+        VALUES (%(user_id)s, %(rut)s, %(first_name)s, %(last_name)s, %(email)s, %(tipo_visita)s, %(zone_id)s, %(fecha_reserva)s, %(horario)s)
         """
         result = connectToMySQL('esquema_maker').query_db(query, formulario)
         return result
