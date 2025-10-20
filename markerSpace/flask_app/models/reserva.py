@@ -43,3 +43,4 @@ class Reserva:
         }
         result = connectToMySQL('esquema_maker').query_db(query, data)
         return len(result) > 0
+
