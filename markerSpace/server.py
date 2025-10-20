@@ -4,7 +4,6 @@
 #3.- python nombre_archivo.py -> python3 nombre_archivo.py, py nombre_archivo.py    en vs
 
 from flask_app import app
-
 from flask_app.controllers import users_controller
 
 #hola hola tilines
