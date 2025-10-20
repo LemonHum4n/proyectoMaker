@@ -46,6 +46,27 @@ class Reserva:
     # aqui los metodos para validar horas , fechas y zonas
 
     @staticmethod
+    def valida_reserva(formulario):
+        # La variable 'es_valido' se inicializa con el resultado de la primera validación.
+        es_valido = Reserva.valida_horario(formulario)
+
+        # Las siguientes validaciones solo deben ejecutarse SI las anteriores fueron válidas
+        # Y el resultado final se combina con 'and' para que si alguna falla, 'es_valido' sea False.
+
+        # Validación 2: Fecha
+        # Se usa 'and' para que solo se ejecute si es_valido sigue siendo True
+        if es_valido:
+            es_valido = es_valido and Reserva.valida_fecha(formulario)
+
+        # Validación 3: Zona
+        # Se usa 'and' para que solo se ejecute si es_valido sigue siendo True
+        if es_valido:
+            es_valido = es_valido and Reserva.valida_zona(formulario)
+        return es_valido
+    
+    # aqui los metodos para validar horas , fechas y zonas
+
+    @staticmethod
     def valida_horario(formulario):
         es_valido = True
 
@@ -57,6 +78,9 @@ class Reserva:
         elif zona == 'Corte Laser':
             horas_disponibles = ['10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30']
         else:
+            # Nota: La validación de zona ya existe en valida_zona, pero si llega aquí, se maneja.
+            # Es mejor mover este 'flash' a valida_zona si es el único chequeo que se necesita.
+            # Por ahora lo dejamos, pero es redundante con valida_zona.
             flash("Zona no valida.", "reserva")
             return False
 
@@ -65,13 +89,14 @@ class Reserva:
             es_valido = False
 
         return es_valido
-    
+
     @staticmethod
     def valida_fecha(formulario):
         es_valido = True
 
         fecha_reserva = formulario['fecha_reserva']
 
+        # Asumiendo que connectToMySQL y flash están definidos/importados correctamente
         query = """
         SELECT COUNT(*) AS total_reservas
         FROM reserva
@@ -85,7 +110,7 @@ class Reserva:
             es_valido = False
 
         return es_valido
-    
+
     @staticmethod
     def valida_zona(formulario):
         es_valido = True
@@ -97,20 +122,18 @@ class Reserva:
             es_valido = False
 
         return es_valido
-    
+
     @staticmethod
     def valida_reserva(formulario):
-        es_valido = True
+        # Inicializa con el resultado de la primera validación.
+        es_valido = Reserva.valida_horario(formulario)
 
-        if not Reserva.valida_horario(formulario):
-            es_valido = False
+        # Si la validación anterior fue exitosa, ejecuta la siguiente y combina el resultado.
+        if es_valido:
+            es_valido = es_valido and Reserva.valida_fecha(formulario)
 
-        if not Reserva.valida_fecha(formulario):
-            es_valido = False
-
-        if not Reserva.valida_zona(formulario):
-            es_valido = False
+        # Si la validación anterior fue exitosa, ejecuta la siguiente y combina el resultado.
+        if es_valido:
+            es_valido = es_valido and Reserva.valida_zona(formulario)
 
         return es_valido
-    
-    
