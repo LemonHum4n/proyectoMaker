@@ -66,4 +66,7 @@ class User:
     def delete(cls, data):
         query = "DELETE FROM users WHERE id = %(id)s"
         return connectToMySQL('esquema_maker').query_db(query, data)
-    
+    @classmethod
+    def delete_reserve(cls, data):
+        query = "DELETE FROM reserva WHERE user_id = %(id)s"
+        return connectToMySQL('esquema_maker').query_db(query, data)
