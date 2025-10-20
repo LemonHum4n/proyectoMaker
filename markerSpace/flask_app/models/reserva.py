@@ -43,3 +43,27 @@ class Reserva:
         datos = [(resultado['tipo_visita'], resultado['porcentaje']) for resultado in resultados]
         return datos
 
+    @classmethod
+    def existe_reserva(cls, zona, fecha_reserva, horario):
+        query = """
+        SELECT id FROM reserva
+        WHERE zona = %(zona)s AND fecha_reserva = %(fecha_reserva)s AND horario = %(horario)s
+        LIMIT 1;
+        """
+        params = {
+            'zona': zona,
+            'fecha_reserva': fecha_reserva,
+            'horario': horario
+        }
+        resultado = connectToMySQL('esquema_maker').query_db(query, params)
+        return True if resultado else False
+
+    @staticmethod
+    def valida_horario(formulario):
+        es_valido = True 
+
+        if Reserva.existe_reserva(formulario['zona'], formulario['fecha_reserva'], formulario['horario']):
+            flash('Horario no disponible para la zona seleccionada', 'reserva')
+            es_valido = False
+
+        return es_valido
