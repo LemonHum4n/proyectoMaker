@@ -43,38 +43,37 @@ class Reserva:
         datos = [(resultado['tipo_visita'], resultado['porcentaje']) for resultado in resultados]
         return datos
     
-    #-------
+    # aqui los metodos para validar horas , fechas y zonas
+
     @classmethod
-    def existe_reserva(cls, zona, fecha_reserva, horario):
+    def validar_disponibilidad(cls, formulario):
         query = """
-        SELECT id FROM reserva
-        WHERE zona = %(zona)s AND fecha_reserva = %(fecha_reserva)s AND horario = %(horario)s
-        LIMIT 1;
+        SELECT COUNT(*) AS cantidad
+        FROM reserva
+        WHERE zona = %(zona)s AND fecha_reserva = %(fecha_reserva)s AND horario = %(horario)s;
         """
-        params = {
-            'zona': zona,
-            'fecha_reserva': fecha_reserva,
-            'horario': horario
-        }
-        resultado = connectToMySQL('esquema_maker').query_db(query, params)
-        return True if resultado else False
+        resultado = connectToMySQL('esquema_maker').query_db(query, formulario)
+        return resultado[0]['cantidad'] == 0  # Retorna True si no hay reservas, False si ya existe una reserva
+    
+    @staticmethod
+    def valida_reserva(formulario):
+        es_valido = True 
 
-    @classmethod
-    def validar_horario(cls, formulario):
-        """
-        formulario debe contener 'zona', 'fecha_reserva' y 'horario'.
-        Devuelve True si el horario está disponible, False si ya hay una reserva.
-        """
-        zona = formulario.get('zona')
-        fecha = formulario.get('fecha_reserva')
-        horario = formulario.get('horario')
+        if len(formulario['first_name']) < 2:
+            flash('Nombre debe tener al menos 2 caracteres', 'reserva')
+            es_valido = False
 
-        if not zona or not fecha or not horario:
-            flash('Faltan datos para validar el horario.', 'reserva')
-            return False
+        if len(formulario['last_name']) < 2:
+            flash('Apellido debe tener al menos 2 caracteres', 'reserva')
+            es_valido = False
 
-        if cls.existe_reserva(zona, fecha, horario):
-            flash('El horario ya está reservado en esa fecha y zona.', 'reserva')
-            return False
+        if not EMAIL_REGEX.match(formulario['email']):
+            flash('E-mail inválido', 'reserva')
+            es_valido = False
 
-        return True
+        # Validar disponibilidad
+        if not Reserva.validar_disponibilidad(formulario):
+            flash('La zona, fecha y horario seleccionados ya están reservados. Por favor, elija otra opción.', 'reserva')
+            es_valido = False
+
+        return es_valido
