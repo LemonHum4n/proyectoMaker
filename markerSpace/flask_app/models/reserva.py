@@ -38,3 +38,17 @@ class Reserva:
         """
         result = connectToMySQL('esquema_maker').query_db(query, formulario)
         return result
+
+    @classmethod
+    def exists(cls, fecha_reserva, horario, zone_id):
+        query = """
+        SELECT * FROM reserva 
+        WHERE fecha_reserva = %(fecha_reserva)s AND horario = %(horario)s AND zone_id = %(zone_id)s
+        """
+        data = {
+            "fecha_reserva": fecha_reserva,
+            "horario": horario,
+            "zone_id": zone_id
+        }
+        result = connectToMySQL('esquema_maker').query_db(query, data)
+        return len(result) > 0
