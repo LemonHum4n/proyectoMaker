@@ -64,7 +64,7 @@
                     <h5>Fecha y hora:</h5>
                     <div class="d-flex align-items-center">
                         <input class="form-control" type="date" id="start" name="fecha" value="">
-                        <select class="form-control horario" name="horario" id="horario">
+                        <select class="form-control horario" type="hora" name="horario" id="horario">
                             <option value="08:00">08:00</option>
                             <option value="09:00">09:00</option>
                             <option value="10:00">10:00</option>
@@ -93,6 +93,21 @@
                         if (day === 5 || day === 6) {
                             alert('No se permiten reservas los fines de semana (sábados y domingos).');
                             this.value = '';
+                        }
+                    });
+
+                    const horarioSelect = document.getElementById('horario');
+                    horarioSelect.addEventListener('change', function () {
+                        const selectedTime = this.value;
+                        const selectedDate = new Date(dateInput.value);
+                        const today = new Date();
+                        if (selectedDate.toDateString() === today.toDateString()) {
+                            const currentHour = today.getHours();
+                            const selectedHour = parseInt(selectedTime.split(':')[0], 10);
+                            if (selectedHour <= currentHour) {
+                                alert('No se pueden seleccionar horas pasadas para el día de hoy.');
+                                this.value = '';
+                            }
                         }
                     });
 
