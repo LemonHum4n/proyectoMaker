@@ -9,6 +9,9 @@
 </head>
 <body>
     <div>
+        <section>
+            <img src="https://liceorbl.cl/v.24/wp-content/uploads/2024/05/RBL.png" alt="Liceo RBL Logo" class="logo">
+        </section>
         <header>
             <h1>Pedir Reserva</h1>
         </header>
@@ -102,9 +105,15 @@
                 <input type="submit" value="Enviar reserva" id="input_enviar">
             </footer>
         </form>
-        <form action="/delete_reserve" method="post" id="form_eliminar">
+        <form action="/eliminar_reserva" method="get" id="form_eliminar">
             <footer>
                 <input type="submit" value="Eliminar reserva" id="input_eliminar">
+            </footer>
+        </form>
+
+        <form action="/estadisticas" method="get" id="form_estadisticas">
+            <footer>
+                <input type="submit" value="Ver estadísticas" id="input_estadisticas">
             </footer>
         </form>
     </div>

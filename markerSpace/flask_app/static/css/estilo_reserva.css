@@ -7,6 +7,17 @@
     box-shadow: #5e2e0b52 0px 4px 8px 0px;
     position: relative;
 }
+.logo {
+    position: fixed;  
+    top: 0px;  
+    right: 10px;   
+    width: 120px;    
+    height: auto;
+    z-index: 1000;   
+    border-radius: 0 0 50px 50px;
+    background-color: #f3e0d7;
+    box-shadow: #5e2e0b52 0px 4px 8px 0px;
+}
 
 body {
     background-color: #E4E0E1;
@@ -29,7 +40,7 @@ footer{
     width: 100%;
 }
 
-#input_enviar, #input_eliminar {
+#input_enviar, #input_eliminar, #input_estadisticas {
     background-color: #493628;
     color: #E4E0E1;
     border: none;
@@ -38,6 +49,11 @@ footer{
     cursor: pointer;
     font-size: 16px;
     margin: 3px;
+}
+
+#input_enviar:hover, #input_eliminar:hover, #input_estadisticas:hover {
+    background-color: #AB886D;
+    color: #493628;
 }
 
 .div_rut, .div_nombre, .div_apellido, .div_gmail, .div_tipo, .div_zona, .div_fecha {
@@ -67,10 +83,7 @@ h5 {
     border-radius: 10px;
 }
 
-#input_enviar:hover, #input_eliminar:hover {
-    background-color: #AB886D;
-    color: #493628;
-}
+
 
 #horario{
     width: 160px;

@@ -1,3 +1,15 @@
+.logo {
+    position: fixed;  
+    top: 0px;  
+    right: 10px;   
+    width: 120px;    
+    height: auto;
+    z-index: 1000;   
+    border-radius: 0 0 50px 50px;
+    background-color: #f3e0d7;
+    box-shadow: #5e2e0b52 0px 4px 8px 0px;
+}
+
 body{
     background-color: rgb(228, 224, 225);
     font-family: Arial, sans-serif;
@@ -5,6 +17,8 @@ body{
     padding: 0;
     box-sizing: border-box;
 }
+
+
 
 .registro{
     margin-top: 65px;
