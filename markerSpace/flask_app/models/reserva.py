@@ -42,3 +42,22 @@ class Reserva:
 
         datos = [(resultado['tipo_visita'], resultado['porcentaje']) for resultado in resultados]
         return datos
+    
+    @classmethod
+    def existe_reserva(cls, zona, fecha_reserva, horario):
+        query = """
+        SELECT * FROM reserva
+        WHERE zona = %(zona)s AND fecha_reserva = %(fecha_reserva)s AND horario = %(horario)s
+        """
+        data = {
+            'zona': zona,
+            'fecha_reserva': fecha_reserva,
+            'horario': horario
+        }
+        result = connectToMySQL('esquema_maker').query_db(query, data)
+        return len(result) > 0
+   
+
+
+
+

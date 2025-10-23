@@ -136,6 +136,12 @@ def guardar_reserva():
         'fecha_reserva': request.form['fecha'],
         'horario': request.form['horario']
     }
+    
+    if Reserva.existe_reserva(formulario['zona'], formulario['fecha_reserva'], formulario['horario']):
+        flash('La zona ya está reservada para la fecha y hora seleccionadas.', 'error')
+    
+        return redirect('/reserva')
+    
     Reserva.save(formulario)
     return redirect('/reserva')
 
