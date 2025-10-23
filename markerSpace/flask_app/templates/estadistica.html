@@ -12,16 +12,16 @@
         <img src="https://liceorbl.cl/v.24/wp-content/uploads/2024/05/RBL.png" alt="Liceo RBL Logo" class="logo">
     </header>
     <h1>Informe de Uso por Zona</h1>
-
-    {% for zona, estadisticas in datos_por_zona.items() %}
-        <div class="grafico-container">
-            <h2>{{ zona }}</h2>
-            <canvas id="chart_{{ loop.index }}" width="20%" height="6%"></canvas>
-        </div>
-    {% endfor %}
-
+        <span class="container">
+            {% for zona, estadisticas in datos_por_zona.items() %}
+                <div class="grafico-container">
+                    <h2>{{ zona }}</h2>
+                    <canvas id="chart_{{ loop.index }}" ></canvas>
+                </div>
+            {% endfor %}
+        </span>
     <script>
-        {% for zona, estadisticas in datos_por_zona.items() %}
+        {% for zona, estadisticas in datos_por_zona.items() %} 
         const ctx{{ loop.index }} = document.getElementById('chart_{{ loop.index }}').getContext('2d');
         new Chart(ctx{{ loop.index }}, {
             type: 'bar',
