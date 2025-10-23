@@ -2,59 +2,70 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Informe con Gráfico de Barras</title>
-    <!-- Incluir Chart.js -->
-    <link rel="stylesheet" href="estilo_estadistica.css">
+    <title>Informe con Gráficos de Barras</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_estadistica.css') }}">
 </head>
 <body>
-    <h1>Informe con Gráfico de Barras</h1>
 
-    <h2>Impresora 3D</h2>
+    <header>
+        <img src="https://liceorbl.cl/v.24/wp-content/uploads/2024/05/RBL.png" alt="Liceo RBL Logo" class="logo">
+    </header>
+    <h1>Informe de Uso por Zona</h1>
 
-    <!-- Agregar un contenedor para el gráfico -->
-    <canvas id="usoChart" width="10" height="5"></canvas>
+    {% for zona, estadisticas in datos_por_zona.items() %}
+        <div class="grafico-container">
+            <h2>{{ zona }}</h2>
+            <canvas id="chart_{{ loop.index }}" width="20%" height="6%"></canvas>
+        </div>
+    {% endfor %}
 
     <script>
-        const ctx = document.getElementById('usoChart').getContext('2d');
-        const data = {
-            labels: [{% for tipo, porcentaje in estadisticas %}'{{ tipo }}'{% if not loop.last %}, {% endif %}{% endfor %}],
-            datasets: [{
-                label: 'Uso del Espacio (%)',
-                data: [{% for tipo, porcentaje in estadisticas %}{{ porcentaje }}{% if not loop.last %}, {% endif %}{% endfor %}],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        };
-
-        const config = {
+        {% for zona, estadisticas in datos_por_zona.items() %}
+        const ctx{{ loop.index }} = document.getElementById('chart_{{ loop.index }}').getContext('2d');
+        new Chart(ctx{{ loop.index }}, {
             type: 'bar',
-            data: data,
+            data: {
+                labels: [{% for tipo, porcentaje in estadisticas %}'{{ tipo }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+                datasets: [{
+                    label: 'Uso del Espacio (%)',
+                    data: [{% for tipo, porcentaje in estadisticas %}{{ porcentaje|round(2) }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
             options: {
+                responsive: true,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        max: 100
                     }
                 }
             }
-        };
-
-        new Chart(ctx, config);
+        });
+        {% endfor %}
     </script>
+
+    <form action="/logro" method="get" id="form_reserva">
+        <footer>
+            <input type="submit" value="Volver" id="input_reserva">
+        </footer>
+    </form>
 </body>
 </html>

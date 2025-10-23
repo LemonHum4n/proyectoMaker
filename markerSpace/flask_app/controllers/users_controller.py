@@ -54,9 +54,9 @@ def login():
 def eliminar_cuenta():
     return render_template('registro.html')
 
-@app.route('/eliminar_reserva', methods=['POST'])
+@app.route('/eliminar_reserva')
 def eliminar_reserva():
-    return render_template('registro.html')
+    return render_template('delete_reserve.html')
 
 @app.route('/logro')
 def logro():
